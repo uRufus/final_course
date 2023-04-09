@@ -9,10 +9,18 @@
 Ключам соответствуют значения начала и конца диапазона суммы вклада и значения процентной ставки для каждого срока.
 В функции необходимо проверять принадлежность суммы вклада к одному из диапазонов и
 выполнять расчет по нужной процентной ставке. Функция возвращает сумму вклада на конец срока.
+
+5. Усовершенствовать программу «Банковский депозит». Третьим аргументом в функцию должна
+передаваться фиксированная ежемесячная сумма пополнения вклада.
+Необходимо в главной функции реализовать вложенную функцию подсчета процентов для пополняемой суммы.
+Примем, что клиент вносит средства в последний день каждого месяца, кроме первого и последнего.
+Например, при сроке вклада в 6 месяцев пополнение происходит в течение 4 месяцев.
+Вложенная функция возвращает сумму дополнительно внесенных средств (с процентами),
+а главная функция — общую сумму по вкладу на конец периода.
 """
 
 
-def deposit(deposit_sum, deposit_period):
+def deposit(deposit_sum, deposit_period, monthly_deposit):
 
     basic = {
         "begin_sum": 1000,
@@ -46,14 +54,21 @@ def deposit(deposit_sum, deposit_period):
     elif deposit_sum > 1000000:
         return f"Сумма вклада выше максимальной"
 
+    def extra_sum(tariff, monthly_deposit):
+        extra_deposit = 0
+        for i in range(1, deposit_period):
+            extra_deposit += monthly_deposit + (monthly_deposit / 100 * tariff[deposit_period]) * ((deposit_period - i) / 12)
+        return extra_deposit
+
     for i in deposit_variants:
         if i["begin_sum"] <= deposit_sum <= i["end_sum"]:
-            return deposit_sum + (deposit_sum / 100 * i[deposit_period]) * (deposit_period / 12)
+            return deposit_sum + (deposit_sum / 100 * i[deposit_period]) * (deposit_period / 12) + extra_sum(i, monthly_deposit)
 
 
 
 # Запрашиваем ввод данных
 deposit_sum = int(input("Введите сумму вклада: "))
 deposit_period = int(input("Введите срок вклада: "))
+monthly_deposit = int(input("Введите ежемесячную сумму пополнения вклада: "))
 
-print(deposit(deposit_sum, deposit_period))
+print(deposit(deposit_sum, deposit_period, monthly_deposit))
