@@ -4,6 +4,7 @@
 Ключи словаря должны создаваться по шаблону: “elem_<номер_элемента>”.
 Вывести содержимое созданных списка и словаря.
 """
+from pprint import pprint
 from random import randint
 
 
@@ -31,4 +32,4 @@ def generator(a, b):
 first_number = int(input("Введите первое положительное число: "))
 second_number = int(input("Введите второе положительное число: "))
 
-print(generator(first_number, second_number))
+pprint(generator(first_number, second_number))
