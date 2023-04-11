@@ -23,5 +23,3 @@ def print_directory_contents(sPath):
 
 
 print_directory_contents(Path("..\\"))
-
-
