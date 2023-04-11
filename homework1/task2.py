@@ -10,6 +10,7 @@ def print_directory_contents(sPath):
 вложенными структурами.
 """
 import os
+from pathlib import Path
 
 
 def print_directory_contents(sPath):
@@ -21,6 +22,6 @@ def print_directory_contents(sPath):
                 print_directory_contents(f"{sPath}\\{v}")
 
 
-print_directory_contents("D:\\Studies\\final_course")
+print_directory_contents(Path("..\\"))
 
 
